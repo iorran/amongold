@@ -26,10 +26,8 @@ export default function CreateRoomPage() {
 
   return (
     <>
-      <section>
-        <label>
-          Room: <span>{room}</span>
-        </label>
+      <section className="flex justify-center mt-2">
+        <kbd className="kbd mb-8">{room}</kbd>
       </section>
       <UsersList room={room as string} />
       {isOwner ? (
