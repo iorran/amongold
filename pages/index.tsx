@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { api } from "../services/api";
 
 export default function Home() {
   const { push } = useRouter();
@@ -8,12 +9,15 @@ export default function Home() {
   const [name, setName] = useState<string>();
   const [room, setRoom] = useState<string>();
 
-  function onCreate() {
+  async function onCreate() {
     if (!name) {
       alert("Who are you ?");
       return;
     }
-    push({ pathname: "rooms", query: { name } });
+
+    const { id } = await api.post("rooms", { name });
+
+    push(`rooms/${id}/users/${name}/create`);
   }
 
   function onJoin(e: React.FormEvent) {
@@ -28,7 +32,7 @@ export default function Home() {
       return;
     }
 
-    push(`rooms/${room}/users/${name}`);
+    push(`rooms/${room}/users/${name}/join`);
   }
 
   return (

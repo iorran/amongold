@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import UsersList from "../../components/users-list";
+import UsersList from "../../../../../components/users-list";
 
 export default function CreateRoomPage() {
   const { push, query } = useRouter();
