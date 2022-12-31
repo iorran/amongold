@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import RoomsList from "../components/rooms-list";
@@ -51,12 +52,15 @@ export default function Home() {
       </Head>
       <main>
         <section>
-          <div className="flex justify-center content-center mt-40">
+          <div className="flex justify-center content-center mt-8">
             <h1 className="text-3xl font-bold">AmongOld!</h1>
           </div>
+          <div className="flex justify-center content-center mt-2">
+            <Image src="/home.jpeg" alt="Logo" width={500} height={500} />
+          </div>
         </section>
-        <section>
-          <div className="flex justify-center content-center mt-40">
+        <section className="mb-8">
+          <div className="flex justify-center content-center mt-8">
             <form onSubmit={onJoin}>
               <label className="label">
                 <span className="label-text">What is your name?</span>
