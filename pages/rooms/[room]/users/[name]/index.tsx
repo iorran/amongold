@@ -5,7 +5,7 @@ import { api } from "../../../../../services/api";
 import { usePlayers } from "../../../../../services/usePlayers";
 
 export default function CreateRoomPage() {
-  const { replace, query } = useRouter();
+  const { query } = useRouter();
 
   const { name, room } = query;
 

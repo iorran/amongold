@@ -16,7 +16,7 @@ export default function Match({ name, room }: MatchProps) {
   }
 
   const player = data.joiners.find((player) => player.name === name);
-  const isOwner = player?.name === name;
+  const isOwner = player?.name === name && player.owner;
 
   async function onStart() {
     await api.post(`api/game/start?roomId=${room}`);
