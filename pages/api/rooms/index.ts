@@ -19,7 +19,7 @@ export default async function handler(
     let id: string = uuidv4().substring(0, 6);
     try {
       const rooms = db.collection("rooms");
-      await rooms.insertOne({ id, status: "WAITING" });
+      await rooms.insertOne({ id, status: "WAITING", date: new Date() });
 
       const joinRoom = db.collection("join_room");
       await joinRoom.insertOne({
@@ -38,8 +38,8 @@ export default async function handler(
       const rooms = await db
         .collection("rooms")
         .find({})
-        .sort({ metacritic: -1 })
-        .limit(50)
+        .sort({ date: -1 })
+        .limit(3)
         .toArray();
       res.status(200).json(rooms.map((room) => room["id"]));
     } catch (e: any) {
