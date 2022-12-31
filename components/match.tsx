@@ -23,17 +23,21 @@ export default function Match({ name, room }: MatchProps) {
   }
 
   return (
-    <section>
-      {player?.name} voce e: <kbd className="kbd">{player?.role} </kbd>
-      {isOwner ? (
-        <button
-          type="button"
-          onClick={onStart}
-          className="btn btn-primary w-40"
-        >
-          Start
-        </button>
-      ) : null}
-    </section>
+    <div className="flex justify-center content-center">
+      <div>
+        {player?.name} voce e: <kbd className="kbd">{player?.role} </kbd>
+      </div>
+      <div className="mt-2">
+        {isOwner ? (
+          <button
+            type="button"
+            onClick={onStart}
+            className="btn btn-primary w-40"
+          >
+            Restart
+          </button>
+        ) : null}
+      </div>
+    </div>
   );
 }
