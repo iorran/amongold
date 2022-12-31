@@ -4,7 +4,8 @@ import clientPromise from "../../../config/mongodb";
 import { v4 as uuidv4 } from 'uuid';
 
 export type Room = {
-    id: string
+    id: string,
+    status: string
 }
 
 export default async function handler(
@@ -23,7 +24,8 @@ export default async function handler(
             const joinRoom = db.collection("join_room");
             await joinRoom.insertOne({
                 roomId: id,
-                name
+                name,
+                owner: true
             })
         } catch (e: any){
             console.log("Error when try to insert in rooms", e)

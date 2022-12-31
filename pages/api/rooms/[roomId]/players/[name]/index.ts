@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import clientPromise from "../../../../config/mongodb";
+import clientPromise from "../../../../../../config/mongodb";
 
 export default async function handler(
     req: NextApiRequest,
