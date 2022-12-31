@@ -23,7 +23,7 @@ export default function Match({ name, room }: MatchProps) {
   }
 
   return (
-    <div className="flex justify-center content-center">
+    <div className="flex flex-col justify-center items-center">
       <div>
         {player?.name} voce e: <kbd className="kbd">{player?.role} </kbd>
       </div>
