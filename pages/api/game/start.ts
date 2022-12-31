@@ -10,8 +10,6 @@ export default async function handler(
     const client = await clientPromise;
     const db = client.db("amongold");
 
-
-
     switch (req.method) {
         case 'POST':
             const collectionRoom = db.collection("rooms");
@@ -23,9 +21,8 @@ export default async function handler(
             const updateDoc = { $set: { status: "STARTED" } };
             await collectionRoom.updateOne({ id: roomId }, updateDoc)
 
-            const joiners = await db
-                .collection("join_room")
-                .find({ roomId })
+            const collectionJoin = db.collection("join_room")
+            const joiners = await collectionJoin.find({ roomId })
                 .sort({ metacritic: -1 })
                 .limit(50)
                 .toArray();
@@ -34,10 +31,19 @@ export default async function handler(
             if(shuffledJoiners.length < 3)
                 return res.status(404).json('The room needs at least 3 joiners');
 
-            shuffledJoiners[0]['role'] = 'D';
-            shuffledJoiners[1]['role'] = 'A';
-            for (let i = 2; i < shuffledJoiners.length ; i++) {
-                shuffledJoiners[i]['role'] = 'V';
+            for (let i = 0; i < shuffledJoiners.length ; i++) {
+                let updateJoiner = null;
+                if(i === 0){
+                    updateJoiner = { $set: { role: "D" } };
+                    shuffledJoiners[0]['role'] = 'D';
+                } else if (i === 1){
+                    updateJoiner = { $set: { role: "A" } };
+                    shuffledJoiners[1]['role'] = 'A';
+                } else {
+                    updateJoiner = { $set: { role: "V" } };
+                    shuffledJoiners[i]['role'] = 'V';
+                }
+                await collectionJoin.updateOne({ roomId, name: shuffledJoiners[i].name }, updateJoiner)
             }
 
             res.status(200).json(shuffledJoiners)

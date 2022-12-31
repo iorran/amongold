@@ -26,7 +26,8 @@ export default async function handler(
 
                 await joinRoom.insertOne({
                     roomId,
-                    name
+                    name,
+                    owner: false
                 })
                 res.status(201).json(`${name} has joined successfully`)
                 return;
