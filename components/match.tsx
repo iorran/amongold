@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { api } from "../services/api";
 import { usePlayers } from "../services/usePlayers";
 
@@ -9,7 +10,9 @@ export type MatchProps = {
 //TODO: must be a route
 
 export default function Match({ name, room }: MatchProps) {
-  const { data, isRefetching } = usePlayers(room as string);
+  const { data } = usePlayers(room as string);
+
+  const [restarted, setRestarted] = useState(false);
 
   if (!data) {
     return <div>loading</div>;
@@ -19,10 +22,12 @@ export default function Match({ name, room }: MatchProps) {
   const isOwner = player?.name === name && player.owner;
 
   async function onStart() {
+    setRestarted(true);
     await api.post(`api/game/start?roomId=${room}`);
+    setRestarted(false);
   }
 
-  if (isRefetching) {
+  if (restarted) {
     return (
       <div className="flex flex-col justify-center items-center">
         Restarting!
