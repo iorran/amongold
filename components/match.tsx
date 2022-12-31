@@ -9,7 +9,7 @@ export type MatchProps = {
 //TODO: must be a route
 
 export default function Match({ name, room }: MatchProps) {
-  const { data } = usePlayers(room as string);
+  const { data, isLoading } = usePlayers(room as string);
 
   if (!data) {
     return <div>loading</div>;
@@ -20,6 +20,14 @@ export default function Match({ name, room }: MatchProps) {
 
   async function onStart() {
     await api.post(`api/game/start?roomId=${room}`);
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col justify-center items-center">
+        Restarting!
+      </div>
+    );
   }
 
   return (
