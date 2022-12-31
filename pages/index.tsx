@@ -13,7 +13,7 @@ export default function Home() {
       alert("Who are you ?");
       return;
     }
-    push("rooms", { query: { name } });
+    push({ pathname: "rooms", query: { name } });
   }
 
   function onJoin(e: React.FormEvent) {
