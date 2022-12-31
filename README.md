@@ -27,10 +27,10 @@ GET
 
 POST
 
-/game
+/game/start
 
 ## Restart Game
 
 POST
 
-/game
+/game/restart
