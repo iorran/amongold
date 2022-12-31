@@ -33,7 +33,7 @@ export default function UsersList({ room }: UsersListProps) {
                   <tr key={player.name}>
                     <th>{index}</th>
                     <td>{player.name}</td>
-                    <td>{player.owner}</td>
+                    <td>{player.owner ? "YES" : "NO"}</td>
                   </tr>
                 );
               })}
