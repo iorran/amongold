@@ -1,14 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../../../../../config/mongodb";
-import { headers } from "../../../../../../utils/api/headers";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<string>
 ) {
-  headers(res);
-
   if (req.method === "POST") {
     const { name, roomId } = req.query;
     try {
