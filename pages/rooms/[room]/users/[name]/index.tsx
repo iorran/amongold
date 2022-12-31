@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
+import Match from "../../../../../components/match";
 import UsersList from "../../../../../components/users-list";
 import { api } from "../../../../../services/api";
 import { usePlayers } from "../../../../../services/usePlayers";
 
 export default function CreateRoomPage() {
-  const { push, query } = useRouter();
+  const { replace, query } = useRouter();
 
   const { name, room } = query;
 
@@ -14,14 +15,14 @@ export default function CreateRoomPage() {
     return <div>loading</div>;
   }
 
-  if (data.status === "STARTED") {
-    push(`rooms/${room}/users/${name}/match`);
-  }
-
   const isOwner = data.joiners.find((player) => player.owner)?.name === name;
 
   async function onStart() {
     await api.post(`api/game/start?roomId=${room}`);
+  }
+
+  if (data.status === "STARTED") {
+    return <Match name={name as string} room={room as string} />;
   }
 
   return (
