@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import RoomsList from "../components/rooms-list";
 import { api } from "../services/api";
 import { Room } from "./api/rooms";
 
@@ -92,6 +93,7 @@ export default function Home() {
             </form>
           </div>
         </section>
+        <RoomsList />
       </main>
     </>
   );
