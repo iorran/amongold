@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../../config/mongodb";
 import { v4 as uuidv4 } from "uuid";
+import { headers } from "../../../utils/api/headers";
 
 export type Room = {
   id: string;
@@ -12,6 +13,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Room | Room[] | string>
 ) {
+  headers(res);
+
   const client = await clientPromise;
   const db = client.db("amongold");
   const { name } = req.body;
