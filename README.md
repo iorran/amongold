@@ -15,7 +15,7 @@ POST
 
 POST
 
-/rooms/{id}/players/{name}
+/rooms/players/{name}?roomId={roomId}
 
 ## List Players from a room
 
