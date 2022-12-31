@@ -52,27 +52,38 @@ export default function Home() {
         <section>
           <div className="flex justify-center content-center mt-40">
             <form onSubmit={onJoin}>
-              <div className="flex justify-center content-center">
-                <input
-                  placeholder="Name"
-                  className="text-center"
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                  placeholder="Code"
-                  className="text-center"
-                  onChange={(e) => setRoom(e.target.value)}
-                />
-              </div>
-              <div className="flex justify-center content-center mt-8">
-                <button type="submit">Join</button>
+              <label className="label">
+                <span className="label-text">What is your name?</span>
+                <span className="label-text-alt">Be Creative</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Name"
+                className="input input-bordered w-full max-w-xs"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <label className="label">
+                <span className="label-text">Joining a room?</span>
+                <span className="label-text-alt">Ask to the owner</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Code"
+                className="input input-bordered w-full max-w-xs"
+                onChange={(e) => setRoom(e.target.value)}
+              />
+              <div className="flex justify-around content-center mt-8">
+                <button type="submit" className="btn btn-primary w-40">
+                  Join
+                </button>
+                <button
+                  onClick={onCreate}
+                  className="btn btn-outline btn-primary w-40"
+                >
+                  Create
+                </button>
               </div>
             </form>
-          </div>
-        </section>
-        <section>
-          <div className="flex justify-center content-center mt-8">
-            <button onClick={onCreate}>Create</button>
           </div>
         </section>
       </main>
