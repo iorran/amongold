@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../../../config/mongodb";
+import { headers } from "../../../../utils/api/headers";
 import { Room } from "../index";
 
 export type JoinersResponse = {
@@ -19,6 +20,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<RoomResponse | string>
 ) {
+  headers(res);
+
   const client = await clientPromise;
   const db = client.db("amongold");
   const { roomId: id } = req.query;
