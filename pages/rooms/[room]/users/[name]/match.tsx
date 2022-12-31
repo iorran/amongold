@@ -1,14 +1,24 @@
 import { useRouter } from "next/router";
+import { usePlayers } from "../../../../../services/usePlayers";
 
 export default function PlayPage() {
-  const router = useRouter();
+  const { query } = useRouter();
+
+  const { name, room } = query;
+
+  const { data } = usePlayers(room as string);
+
+  if (!data) {
+    return <div>loading</div>;
+  }
+
+  const player = data.joiners.find((player) => player.name === name);
 
   return (
-    <>
-      <section>
-        <label>Don&rsquo;t show it, you are....</label>
-      </section>
-      <section>{JSON.stringify(router.query)}</section>
-    </>
+    <section>
+      <label>
+        {player?.name} voce e: {player?.role}
+      </label>
+    </section>
   );
 }

@@ -20,7 +20,7 @@ export default function Home() {
       data: { id },
     } = await api.post<Room>("api/rooms", { name });
 
-    push(`rooms/${id}/users/${name}/create`);
+    push(`rooms/${id}/users/${name}`);
   }
 
   async function onJoin(e: React.FormEvent) {
@@ -35,9 +35,9 @@ export default function Home() {
       return;
     }
 
-    await api.post(`rooms/players/${name}?roomId=${room}`);
+    await api.post(`api/rooms/${room}/players/${name}`);
 
-    push(`rooms/${room}/users/${name}/join`);
+    push(`rooms/${room}/users/${name}`);
   }
 
   return (
