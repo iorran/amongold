@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { api } from "../services/api";
+import { Room } from "./api/rooms";
 
 export default function Home() {
   const { push } = useRouter();
@@ -15,12 +16,14 @@ export default function Home() {
       return;
     }
 
-    const { id } = await api.post("rooms", { name });
+    const {
+      data: { id },
+    } = await api.post<Room>("api/rooms", { name });
 
     push(`rooms/${id}/users/${name}/create`);
   }
 
-  function onJoin(e: React.FormEvent) {
+  async function onJoin(e: React.FormEvent) {
     e.preventDefault();
 
     if (!name) {
@@ -31,6 +34,8 @@ export default function Home() {
       alert("Where do you wanna go?");
       return;
     }
+
+    await api.post(`rooms/players/${name}?roomId=${room}`);
 
     push(`rooms/${room}/users/${name}/join`);
   }
@@ -54,12 +59,12 @@ export default function Home() {
             <form onSubmit={onJoin}>
               <label className="label">
                 <span className="label-text">What is your name?</span>
-                <span className="label-text-alt">Be Creative</span>
+                <span className="label-text-alt">Be creative</span>
               </label>
               <input
                 type="text"
                 placeholder="Name"
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full"
                 onChange={(e) => setName(e.target.value)}
               />
               <label className="label">
@@ -69,14 +74,15 @@ export default function Home() {
               <input
                 type="text"
                 placeholder="Code"
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full"
                 onChange={(e) => setRoom(e.target.value)}
               />
-              <div className="flex justify-around content-center mt-8">
+              <div className="flex justify-around content-center mt-8 gap-4">
                 <button type="submit" className="btn btn-primary w-40">
                   Join
                 </button>
                 <button
+                  type="button"
                   onClick={onCreate}
                   className="btn btn-outline btn-primary w-40"
                 >

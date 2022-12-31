@@ -1,13 +1,15 @@
 import { useRouter } from "next/router";
 import UsersList from "../../../../../components/users-list";
+import { api } from "../../../../../services/api";
 
 export default function CreateRoomPage() {
   const { push, query } = useRouter();
-  console.log(query);
 
-  const { name, room = 90 } = query;
+  const { name, room } = query;
 
-  function onStart() {
+  async function onStart() {
+    await api.post(`api/game/start?roomId=${room}`);
+
     push(`rooms/${room}/users/${name}/match`);
   }
 
